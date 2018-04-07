@@ -10,9 +10,11 @@ import { HttpService } from './services/http.service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
+import { SummaryComponent } from './components/summary/summary.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'summary', component: SummaryComponent },
   { path: 'schedule', component: ScheduleComponent }
 ];
 
@@ -20,7 +22,8 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    ScheduleComponent
+    ScheduleComponent,
+    SummaryComponent
   ],
   imports: [
     BrowserModule,
