@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <form (ngSubmit)="onScheduleSubmit()" id="scheduleForm" #scheduleForm="ngForm">
+        <h2 class="text-primary">Schedule a Recurring Call</h2>
+        <hr>
+        <div class="form-group">
+          <label for="amount" class="col-form-label">Primary Caregiver Phone Number</label>
+          <input type="text" class="form-control" name="primary" placeholder="+1 (311) 232 1324" ngModel required>
+        </div>
+        <div class="form-group">
+          <label for="amount" class="col-form-label">Secondary Caregiver Phone Number</label>
+          <input type="text" class="form-control" name="secondary" placeholder="+1 (311) 232 1324" ngModel required>
+        </div>
+        <div class="form-group">
+          <label for="amount" class="col-form-label">Patient Phone Number</label>
+          <input type="text" class="form-control" name="patient" placeholder="+1 (311) 232 1324" ngModel required>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect2">How many call attempts per day?</label>
+          <select class="form-control" id="exampleFormControlSelect2" name="frequency" ngModel>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+      </form>
+      <p>What time should should we call every day?</p>
+      <ngb-timepicker [(ngModel)]="time" [meridian]="meridian"></ngb-timepicker>
+      <button type="submit" form="scheduleForm" class="btn btn-primary btn-lg btn-block">Schedule</button>
+    </div>
+  </div>
+</div>
