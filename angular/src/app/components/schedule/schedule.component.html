@@ -1,5 +1,7 @@
 <div class="main-container">
-  <div class="container">
+  <ng4-loading-spinner> </ng4-loading-spinner>
+  <h2 *ngIf="loading" class="text-white in-progress">Call in Progress</h2>
+  <div *ngIf="!loading" class="container">
     <div class="row">
       <div class="col-12">
         <form (ngSubmit)="onScheduleSubmit()" id="scheduleForm" #scheduleForm="ngForm">
@@ -11,7 +13,7 @@
           </div>
           <div class="form-group">
             <label for="amount" class="col-form-label lbl">Primary Caregiver Phone Number</label>
-            <input type="text" class="form-control inp" name="primary" placeholder="+1 (311) 232 1324" ngModel required>
+            <input type="tel" class="form-control inp" name="primary" ngModel required>
           </div>
           <div class="form-group">
             <label for="amount" class="col-form-label lbl">Patient Name</label>
@@ -19,7 +21,7 @@
           </div>
           <div class="form-group">
             <label for="amount" class="col-form-label lbl">Patient Phone Number</label>
-            <input type="text" class="form-control inp" name="patient" placeholder="+1 (311) 232 1324" ngModel required>
+            <input type="tel" class="form-control inp" name="patient" ngModel required>
           </div>
           <!-- <div class="form-group">
                 <label for="exampleFormControlSelect2">How many call attempts per day?</label>

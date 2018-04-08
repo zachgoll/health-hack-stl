@@ -14,4 +14,8 @@ export class HttpService {
     getLogs(number: any) {
         return this.http.get(`/${number}/call-statuses`);
     }
+
+    getAllLogs() {
+        return this.http.get('/all-statuses');
+    }
 }

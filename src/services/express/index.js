@@ -8,6 +8,7 @@ import mongoose from 'mongoose';
 import { errorHandler as queryErrorHandler } from 'querymen'
 import { errorHandler as bodyErrorHandler } from 'bodymen'
 import { env } from '../../config'
+const phoneParser = require('phone-parser');
 const path = require('path');
 const Schema = mongoose.Schema;
 
@@ -67,20 +68,23 @@ export default (apiRoot, routes) => {
   let count = 0;
   let primary = '';
   let patientNum = '';
+  let patientName = '';
+
+  function phoneParse(number) {
+    return phoneParser(number, '+1xxxxxxxxxx');
+  }
 
   app.post('/make-call', (req, res) => {
     console.log(req.body);
-    primary = req.body.primaryNum;
+    primary = phoneParse(req.body.primaryNum);
     name = req.body.name;
-    patientNum = req.body.patientNum;
+    patientName = req.body.patientName;
+    console.log(primary);
+    patientNum = phoneParse(req.body.patientNum);
     setTimeout(() => {
       client.calls.create({
-        url: 'http://74062e82.ngrok.io/voice',
-        //to: '+13143030142',
-        //to: '+13144229027',
+        url: 'http://50a3c42f.ngrok.io/voice',
         to: patientNum,
-        //to: '+16362265601',
-        //to: req.body.patientNum,
         from: process.env.TWILIO_PHONE
       }, (err, call) => {
         if (err) {
@@ -89,7 +93,7 @@ export default (apiRoot, routes) => {
           console.log(call.pid);
         }
       });
-    }, 1000);
+    }, 0);
     res.status(200).json({ status: 'good', message: 'works' });
   });
 
@@ -117,7 +121,7 @@ export default (apiRoot, routes) => {
       action: '/gather'
     });
 
-    gather.say({ voice: 'man' }, `Hey grandma.  This is ${name} sending you a call on behalf of Pill Check to see if you have taken your pills today.  Press 1 if you have.  Love you!`);
+    gather.say({ voice: 'man' }, `Pill Check from ${name}.  Greetings and Hello ${patientName}.  This is ${name} sending you a call on behalf of Pill Check to see if you have taken your pills today.  Press 1 if you have.`);
     // If user doesn't respond, repeat the menu
     //twiml.redirect('/voice');
 
@@ -142,22 +146,27 @@ export default (apiRoot, routes) => {
       requestMod(opts, (err, res) => {
         console.log(res.body);
         return;
-      })
+      });
     }
 
     if (request.body.Digits) {
       switch (request.body.Digits) {
         case '1':
-          twiml.say('Thanks grandma!  We are glad you are staying healthy!');
-          successResponse();
+          twiml.say('You have confirmed that you have taken your pills today.  Your primary caregiver will be notified!  Have a nice day!');
+          createConf(true);
+          client.messages.create({
+            to: primary,
+            from: process.env.TWILIO_PHONE,
+            body: `Hey ${name}, this is a message to let you know that ${patientName} responded YES to taking her pills today!`
+          })
           break;
         default:
-          twiml.say('Sorry, that is not an option');
+          twiml.say('You did not confirm pill adherence today.  A follow up call will occur in 15 minutes.');
           createConf(false);
           client.messages.create({
             to: primary,
             from: process.env.TWILIO_PHONE,
-            body: `Hey ${name}, this is a message to let you know that grandma did not confirm taking her pills today.`
+            body: `Hey ${name}, this is a message to let you know that ${patientName} DID NOT confirm taking her pills today.`
           })
             .then((message) => console.log(message.sid))
           break;
@@ -202,6 +211,12 @@ export default (apiRoot, routes) => {
   app.get('/:number/call-statuses', (req, res) => {
     const num = req.params.number;
     ConfirmationClass.find({ patientNumber: num }).then((calls) => {
+      res.json(calls);
+    });
+  });
+
+  app.get('/all-statuses', (req, res) => {
+    ConfirmationClass.find().then((calls) => {
       res.json(calls);
     });
   });

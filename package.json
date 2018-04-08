@@ -59,6 +59,7 @@
     "passport-http": "^0.3.0",
     "passport-http-bearer": "^1.0.1",
     "passport-jwt": "^3.0.0",
+    "phone-parser": "0.0.2",
     "querymen": "^2.1.3",
     "rand-token": "^0.4.0",
     "request": "^2.85.0",

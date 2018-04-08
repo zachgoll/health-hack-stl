@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 import { HttpService } from './services/http.service';
 
@@ -32,7 +33,8 @@ const routes: Routes = [
     FormsModule,
     NgbModule.forRoot(),
     HttpClientModule,
-    ChartsModule
+    ChartsModule,
+    Ng4LoadingSpinnerModule.forRoot()
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

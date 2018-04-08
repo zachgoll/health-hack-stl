@@ -22,3 +22,12 @@
 .lbl {
     color: white !important;
 }
+
+.in-progress {
+    position: absolute;
+    top: 35%;
+    right: 50%;
+    font-size: 3rem !important;
+    transform: translate(50%, -30%);
+    z-index: 100;
+}

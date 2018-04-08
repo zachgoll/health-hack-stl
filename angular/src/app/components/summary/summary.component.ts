@@ -31,15 +31,39 @@ export class SummaryComponent implements OnInit {
     console.log(e);
   }
 
-  onSubmit() {
-    console.log(this.currentNum);
+  formatDate(date) {
+    var monthNames = [
+      "January", "February", "March",
+      "April", "May", "June", "July",
+      "August", "September", "October",
+      "November", "December"
+    ];
+
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+
+    return day + ' ' + monthNames[monthIndex] + ' ' + year;
+  }
+
+  formatTime(date) {
+    var hour = date.getHours();
+    var minute = date.getMinutes();
+
+    return hour + ':' + minute;
+  }
+
+  lookupAll() {
+    this.logs = [];
+    this.currentNum = '';
     let yes = 0;
     let no = 0;
     let none = 0;
-    this.currentNum = this.numberForm.form.value.patientNum;
-    this.http.getLogs(this.currentNum).subscribe((logs) => {
+    this.http.getAllLogs().subscribe((logs) => {
       this.logs = logs;
       this.logs.forEach((log) => {
+        log.createdAt = this.formatDate(new Date(log.createdAt));
+        log.updatedAt = this.formatTime(new Date(log.updatedAt));
         if (log.status) {
           no = no + 1;
         } else if (log.status === false) {
@@ -49,6 +73,30 @@ export class SummaryComponent implements OnInit {
         }
       });
       this.pieChartData = [yes, no, none];
+    });
+  }
+
+  onSubmit() {
+    console.log(this.currentNum);
+    let yes = 0;
+    let no = 0;
+    let none = 0;
+    this.currentNum = this.numberForm.form.value.patientNum;
+    this.http.getLogs(this.currentNum).subscribe((logs) => {
+      this.logs = logs;
+      this.logs.forEach((log) => {
+        log.createdAt = this.formatDate(new Date(log.createdAt));
+        log.updatedAt = this.formatTime(new Date(log.updatedAt));
+        if (log.status) {
+          no = no + 1;
+        } else if (log.status === false) {
+          yes = yes + 1;
+        } else {
+          none = none + 1;
+        }
+      });
+      this.pieChartData = [yes, no, none];
+      this.numberForm.reset();
       console.log(this.logs);
     });
   }

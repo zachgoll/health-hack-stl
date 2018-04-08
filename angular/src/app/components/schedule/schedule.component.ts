@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpService } from '../../services/http.service';
 import { Router } from '@angular/router';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
   selector: 'app-schedule',
@@ -10,10 +11,11 @@ import { Router } from '@angular/router';
 })
 export class ScheduleComponent implements OnInit {
 
-  constructor(private http: HttpService, private router: Router) { }
+  constructor(private http: HttpService, private router: Router, private spinnerService: Ng4LoadingSpinnerService) { }
 
   time = { hour: 13, minute: 30 };
   meridian = true;
+  loading = false;
 
   @ViewChild('scheduleForm') scheduleForm: NgForm;
 
@@ -36,12 +38,17 @@ export class ScheduleComponent implements OnInit {
     }
 
     this.http.postCall(call).subscribe((data) => {
-      console.log(data);
+      this.loading = true;
+      this.spinnerService.show();
       this.scheduleForm.reset();
       setTimeout(() => {
+        this.loading = false;
+        this.spinnerService.hide();
         this.router.navigate(['/summary']);
-      }, 5000);
+      }, 15000);
     }, (err) => {
+      this.loading = true;
+      this.spinnerService.show();
       console.log(err);
     });
   }
