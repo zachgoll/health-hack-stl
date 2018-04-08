@@ -1,34 +1,48 @@
-<p>
-  summary works!
-</p>
-<button class="btn btn-primary">this is button</button>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Start Time</th>
-      <th scope="col">Status</th>
-      <th scope="col">Direction</th>
-      <th scope="col">Answered By</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="col-12">
+      <form (ngSubmit)="onSubmit()" id="numberForm" #numberForm="ngForm">
+        <h2>Lookup Call Logs {{currentNum}}</h2>
+        <hr>
+        <div class="form-group">
+          <label for="amount" class="col-form-label">Enter your patient's number</label>
+          <input type="text" class="form-control" name="patientNum" ngModel required>
+        </div>
+        <button type="submit" class="btn btn-primary">Lookup</button>
+      </form>
+      <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let log of logs">
+            <td>{{log.createdAt}}</td>
+            <td>{{log.createdAt}}</td>
+            <td *ngIf="log.status === undefined">No Status</td>
+            <td *ngIf="log.status !== undefined">{{log.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-6">
+
+      <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
+      <br>
+
+    </div>
+  </div>
+
+
+
+</div>

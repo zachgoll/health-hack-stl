@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { ChartsModule } from 'ng2-charts';
 
 import { HttpService } from './services/http.service';
 
@@ -30,7 +31,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { useHash: true }),
     FormsModule,
     NgbModule.forRoot(),
-    HttpClientModule
+    HttpClientModule,
+    ChartsModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

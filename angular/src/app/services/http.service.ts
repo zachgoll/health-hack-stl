@@ -7,8 +7,11 @@ export class HttpService {
     constructor(private http: HttpClient) { }
 
     postCall(call: any) {
-        //const headers = new HttpHeaders({'Content-type': 'application/json'});
-        console.log(call);
-        //return this.http.post('/api/v1/utxos/new', call, {headers: headers});
+        const headers = new HttpHeaders({ 'Content-type': 'application/json' });
+        return this.http.post('/make-call', call, { headers: headers });
+    }
+
+    getLogs(number: any) {
+        return this.http.get(`/${number}/call-statuses`);
     }
 }

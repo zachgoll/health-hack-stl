@@ -27,15 +27,20 @@ export class ScheduleComponent implements OnInit {
 
   onScheduleSubmit() {
     const call = {
+      name: this.scheduleForm.form.value.name,
       primaryNum: this.scheduleForm.form.value.primary,
-      secondaryNum: this.scheduleForm.form.value.secondary,
+      patientName: this.scheduleForm.form.value.patientName,
       patientNum: this.scheduleForm.form.value.patient,
       frequency: this.scheduleForm.form.value.frequency,
       hour: this.time.hour,
       minute: this.time.minute
     }
 
-    console.log(call);
+    this.http.postCall(call).subscribe((data) => {
+      console.log(data);
+    }, (err) => {
+      console.log(err);
+    });
   }
 
 }
