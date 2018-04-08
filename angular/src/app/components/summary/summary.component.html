@@ -2,8 +2,10 @@
   <br>
   <div class="row">
     <div class="col-12">
+      <button routerLink="/" class="btn btn-primary float-right">Home</button>
       <form (ngSubmit)="onSubmit()" id="numberForm" #numberForm="ngForm">
         <h2>Lookup Call Logs {{currentNum}}</h2>
+
         <hr>
         <div class="form-group">
           <label for="amount" class="col-form-label">Enter your patient's number</label>

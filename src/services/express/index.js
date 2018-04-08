@@ -201,7 +201,7 @@ export default (apiRoot, routes) => {
 
   app.get('/:number/call-statuses', (req, res) => {
     const num = req.params.number;
-    ConfirmationClass.find().then((calls) => {
+    ConfirmationClass.find({ patientNumber: num }).then((calls) => {
       res.json(calls);
     });
   });

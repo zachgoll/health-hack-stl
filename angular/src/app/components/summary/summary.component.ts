@@ -15,8 +15,8 @@ export class SummaryComponent implements OnInit {
 
   logs: any = [];
   currentNum = '';
-  public pieChartLabels: string[] = ['No Response', 'Took Medication'];
-  public pieChartData: number[] = [0, 0];
+  public pieChartLabels: string[] = ['No Response', 'Positive Response', 'No Status'];
+  public pieChartData: number[] = [0, 0, 0];
   public pieChartType: string = 'pie';
 
   ngOnInit() {
@@ -32,16 +32,23 @@ export class SummaryComponent implements OnInit {
   }
 
   onSubmit() {
-    const yes = 0;
-    const no = 0;
+    console.log(this.currentNum);
+    let yes = 0;
+    let no = 0;
+    let none = 0;
     this.currentNum = this.numberForm.form.value.patientNum;
     this.http.getLogs(this.currentNum).subscribe((logs) => {
       this.logs = logs;
       this.logs.forEach((log) => {
         if (log.status) {
-          console.log('est');
+          no = no + 1;
+        } else if (log.status === false) {
+          yes = yes + 1;
+        } else {
+          none = none + 1;
         }
       });
+      this.pieChartData = [yes, no, none];
       console.log(this.logs);
     });
   }

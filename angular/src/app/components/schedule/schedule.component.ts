@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { HttpService } from '../../services/http.service';
-
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-schedule',
@@ -11,7 +10,7 @@ import { HttpService } from '../../services/http.service';
 })
 export class ScheduleComponent implements OnInit {
 
-  constructor(private http: HttpService) { }
+  constructor(private http: HttpService, private router: Router) { }
 
   time = { hour: 13, minute: 30 };
   meridian = true;
@@ -38,6 +37,10 @@ export class ScheduleComponent implements OnInit {
 
     this.http.postCall(call).subscribe((data) => {
       console.log(data);
+      this.scheduleForm.reset();
+      setTimeout(() => {
+        this.router.navigate(['/summary']);
+      }, 5000);
     }, (err) => {
       console.log(err);
     });
