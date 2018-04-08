@@ -6,6 +6,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { VgCoreModule } from 'videogular2/core';
+import { VgControlsModule } from 'videogular2/controls';
+import { VgOverlayPlayModule } from 'videogular2/overlay-play';
+import { VgBufferingModule } from 'videogular2/buffering';
 
 import { HttpService } from './services/http.service';
 
@@ -34,7 +38,11 @@ const routes: Routes = [
     NgbModule.forRoot(),
     HttpClientModule,
     ChartsModule,
-    Ng4LoadingSpinnerModule.forRoot()
+    Ng4LoadingSpinnerModule.forRoot(),
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   providers: [HttpService],
   bootstrap: [AppComponent]

@@ -1,9 +1,9 @@
 <div class="main-container">
   <ng4-loading-spinner> </ng4-loading-spinner>
-  <h2 *ngIf="loading" class="text-white in-progress">Call in Progress</h2>
+  <h2 *ngIf="loading" class="text-white in-progress">Test Call in Progress</h2>
   <div *ngIf="!loading" class="container">
     <div class="row">
-      <div class="col-12">
+      <div class="col-6 ml-auto mr-auto">
         <form (ngSubmit)="onScheduleSubmit()" id="scheduleForm" #scheduleForm="ngForm">
           <h2 class="text-white">Schedule a Recurring Call</h2>
           <hr class="white-divider">

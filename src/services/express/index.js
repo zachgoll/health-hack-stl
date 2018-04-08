@@ -83,7 +83,7 @@ export default (apiRoot, routes) => {
     patientNum = phoneParse(req.body.patientNum);
     setTimeout(() => {
       client.calls.create({
-        url: 'http://50a3c42f.ngrok.io/voice',
+        url: 'http://81e93c47.ngrok.io/voice',
         to: patientNum,
         from: process.env.TWILIO_PHONE
       }, (err, call) => {
@@ -157,7 +157,7 @@ export default (apiRoot, routes) => {
           client.messages.create({
             to: primary,
             from: process.env.TWILIO_PHONE,
-            body: `Hey ${name}, this is a message to let you know that ${patientName} responded YES to taking her pills today!`
+            body: `Hey ${name}, this is a message to let you know that ${patientName} responded YES to taking their pills today!`
           })
           break;
         default:
@@ -166,7 +166,7 @@ export default (apiRoot, routes) => {
           client.messages.create({
             to: primary,
             from: process.env.TWILIO_PHONE,
-            body: `Hey ${name}, this is a message to let you know that ${patientName} DID NOT confirm taking her pills today.`
+            body: `Hey ${name}, this is a message to let you know that ${patientName} DID NOT confirm taking their pills today.`
           })
             .then((message) => console.log(message.sid))
           break;
@@ -188,7 +188,7 @@ export default (apiRoot, routes) => {
   app.post('/:number/canceled', (req, res) => {
     const filterOpts = {
       status: 'canceled',
-      to: req.params.number
+      to: phoneParse(req.params.number)
     }
     client.calls.each(filterOpts, call => console.log(call.startTime));
     res.send('Done');
@@ -198,7 +198,7 @@ export default (apiRoot, routes) => {
     let calls = [];
     const filterOpts = {
       status: 'completed',
-      to: req.params.number
+      to: phoneParse(req.params.number)
     }
     setTimeout(() => {
       res.send(calls);
@@ -209,7 +209,8 @@ export default (apiRoot, routes) => {
   });
 
   app.get('/:number/call-statuses', (req, res) => {
-    const num = req.params.number;
+    const num = phoneParse(req.params.number);
+
     ConfirmationClass.find({ patientNumber: num }).then((calls) => {
       res.json(calls);
     });

@@ -1,17 +1,21 @@
 <div class="main-container">
   <img class="logo" src="/assets/pillcheck.png" alt="">
+  <p class="slogan">A Network That Cares</p>
   <button class="home-button hb1" (click)="open(content)">Watch Video</button>
   <button routerLink="/schedule" class="home-button hb2">Schedule Call</button>
 </div>
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">Pill Check Introduction</h4>
+    <h4 class="modal-title">What is Pill Check?</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <iframe width="100%" height="500px" src="https://www.youtube.com/embed/A3vyg6MRfvc" frameborder="0" allow="autoplay; encrypted-media"
-      allowfullscreen></iframe>
+    <vg-player>
+      <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
+        <source src="/assets/pill-check.mp4" type="video/mp4">
+      </video>
+    </vg-player>
   </div>
 </ng-template>
