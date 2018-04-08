@@ -45,7 +45,7 @@ export class ScheduleComponent implements OnInit {
         this.loading = false;
         this.spinnerService.hide();
         this.router.navigate(['/summary']);
-      }, 15000);
+      }, 20000);
     }, (err) => {
       this.loading = true;
       this.spinnerService.show();

@@ -121,7 +121,7 @@ export default (apiRoot, routes) => {
       action: '/gather'
     });
 
-    gather.say({ voice: 'man' }, `Pill Check from ${name}.  Greetings and Hello ${patientName}.  This is ${name} sending you a call on behalf of Pill Check to see if you have taken your pills today.  Press 1 if you have.`);
+    gather.say({ voice: 'man' }, `               Greetings ${patientName}.  This is ${name} sending you a call on behalf of Pill Check to see if you have taken your pills today.  Press 1 if you have.`);
     // If user doesn't respond, repeat the menu
     //twiml.redirect('/voice');
 
