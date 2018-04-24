@@ -23,7 +23,7 @@
 
 .home-button {
     background-color: transparent;
-    border: solid 2px white;
+    border: solid 1px white;
     border-radius: 2px;
     padding: 5px 20px;
     position: absolute;
@@ -37,11 +37,15 @@
 }
 
 .hb1 {
-    left: 58%;
+    left: 54%;
 }
 
 .hb2 {
-    left: 72%;
+    left: 66%;
+}
+
+.hb3 {
+    left: 78%;
 }
 
 .slogan {

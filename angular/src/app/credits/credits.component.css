@@ -1,0 +1,14 @@
+.main-container {
+
+    background-image: linear-gradient(to right, rgb(91,155,213), rgba(91,155,213, 0.6)), url(/assets/pill-bg.jpg);
+    height: 100vh;
+    width: 100vw;
+    padding: 30px;
+    background-size: cover;
+    background-position: bottom;    
+}
+
+.cir {
+
+    border-radius: 20px;
+}

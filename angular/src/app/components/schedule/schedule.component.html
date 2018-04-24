@@ -1,4 +1,7 @@
 <div class="main-container">
+    <button type="button" class="close" routerLink="/">
+      <span >&times;</span>
+    </button>
   <ng4-loading-spinner> </ng4-loading-spinner>
   <h2 *ngIf="loading" class="text-white in-progress">Test Call in Progress</h2>
   <div *ngIf="!loading" class="container">
@@ -32,7 +35,7 @@
                 </select>
               </div> -->
         </form>
-        <p class="lbl">What time should should we call every day?</p>
+        <p class="lbl">What time should we call every day?</p>
         <ngb-timepicker [(ngModel)]="time" [meridian]="meridian"></ngb-timepicker>
         <button type="submit" form="scheduleForm" class="btn btn-lg btn-block">Schedule</button>
       </div>

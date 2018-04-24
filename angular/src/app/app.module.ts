@@ -17,11 +17,13 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { SummaryComponent } from './components/summary/summary.component';
+import { CreditsComponent } from './credits/credits.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'summary', component: SummaryComponent },
-  { path: 'schedule', component: ScheduleComponent }
+  { path: 'schedule', component: ScheduleComponent },
+  { path: 'credits', component: CreditsComponent }
 ];
 
 @NgModule({
@@ -29,7 +31,8 @@ const routes: Routes = [
     AppComponent,
     HomeComponent,
     ScheduleComponent,
-    SummaryComponent
+    SummaryComponent,
+    CreditsComponent
   ],
   imports: [
     BrowserModule,
